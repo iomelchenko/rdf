@@ -1,0 +1,30 @@
+<%# encoding: utf-8 %>
+
+jQuery(function($) {
+  $("#source_name").change(function() {
+      var str = $("select#source_name option").filter(":selected").val();
+      var src = new Array();
+      <% for sorce in StgSource.find(:all) %>
+        src.push(new Array('<%= sorce.name %>', '<%= sorce.description %>', 
+                           '<%= sorce.object_type %>'));
+      <% end %>
+
+  jQuery.each(src, function(index, value) {
+
+         if (this[0] == str) {
+             var str2 = this[1];
+             var str3 = '';
+             if (this[2] == 't') {
+                 str3 = 'TABLE';
+             }
+             if (this[2] == 'v') {
+                 str3 = 'VIEW';
+             }             
+
+         $("#source_description").val(str2);
+         $("#type_title").val(str3);
+         }
+
+     });
+  });
+});
