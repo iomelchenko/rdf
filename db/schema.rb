@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131119064045) do
+ActiveRecord::Schema.define(:version => 20131124195159) do
 
   create_table "reports", :force => true do |t|
     t.string   "name"
@@ -36,14 +36,18 @@ ActiveRecord::Schema.define(:version => 20131119064045) do
     t.integer  "report_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "owner"
   end
 
   create_table "stg_source_fields", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.string   "date_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "data_length"
+    t.string   "data_precigion"
+    t.string   "data_scale"
   end
 
   create_table "stg_sources", :force => true do |t|
@@ -52,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20131119064045) do
     t.string   "object_type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "owner"
   end
 
 end

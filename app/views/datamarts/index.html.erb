@@ -1,0 +1,33 @@
+<% javascript 'datamart_spoiler' %>
+
+<%- model_class = Datamart -%>
+<div class="page-header">
+  <h3><%=t '.title', :default => model_class.model_name.human.pluralize %></h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:data) %></th>
+      <th><%= model_class.human_attribute_name(:baccount) %></th>
+      <th><%= model_class.human_attribute_name(:customer) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+    </tr>
+  </thead>
+  <tbody>
+
+       <% @datamarts.each do |datamart| %>   
+
+        
+            <tr data-hidden="hide<%= "#{data_hidden(datamart.customer_id, datamart.baccount_id, datamart.data_id)}" %>" class="<%= "#{hide(datamart.customer_id, datamart.baccount_id, datamart.data_id)}" %> spoiler n_<%= "#{datamart.customer_id}"  %> n_<%= "#{datamart.baccount_id}" %> n_<%= "#{datamart.data_id}"  %>">
+              <td><%= datamart.data.to_date.to_formatted_s(:db) %></td>
+              <td><%= datamart.baccount %></td>
+              <td><%= datamart.customer %></td>
+              <td><%= datamart.amount %></td>
+            </tr>
+
+
+       <% end %>
+
+
+  </tbody>
+</table>

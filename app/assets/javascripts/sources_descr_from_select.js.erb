@@ -1,0 +1,28 @@
+<%# encoding: utf-8 %>
+
+jQuery(function($) {
+  $("#source_name").change(function() {
+      var str = $("select#source_name option").filter(":selected").val();
+      var nm = $("select#source_name option").filter(":selected").text();
+      
+
+      <% for sorce in StgSource.find(:all) %>
+
+          if ('<%= sorce.id.to_s %>' == str) {
+           var descr = '<%= sorce.description %>';
+           var ot    = '<%= if sorce.object_type = 't' 
+                              'TABLE'
+                            end  %>';
+           var owner = '<%= sorce.owner %>';
+
+          } 
+
+      <% end %>
+
+         $("#source_description").val(descr);
+         $("#source_object_type").val(ot);
+         $("#source_owner").val(owner);
+         $("#tname_title").val(nm);
+
+  });
+});

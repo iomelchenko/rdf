@@ -1,0 +1,41 @@
+<%- model_class = SourceField -%>
+
+<%= form_tag ([@report, @source, @source.source_fields.build]) do %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= model_class.human_attribute_name(:name) %></th>
+        <th><%= model_class.human_attribute_name(:data_type) %></th>
+        <th><%= model_class.human_attribute_name(:description) %></th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @stg_source_field.each do |field| %>
+        <tr>
+
+          <td> 
+            <%= text_field_tag "source_fields[][name]", nil, value: "#{field.name}", :readonly => true %>
+          </td>
+          <td>
+            <%= text_field_tag "source_fields[][date_type]", nil, value: "#{dtype(field.date_type, field.data_length, field.data_precigion, field.data_scale)}", :readonly => true %>
+          </td>
+          <td>
+            <%= text_field_tag "source_fields[][description]", nil, value: "#{field.description}" %>            
+          </td>
+          <td>
+            <%= check_box_tag "source_fields[][box]", nil %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+    <div class="form-actions">
+    <%= submit_tag nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel'),
+                report_sources_path, :class => 'btn' %>
+  </div> 
+
+<% end %>
+

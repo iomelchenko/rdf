@@ -2,6 +2,7 @@ class SourcesController < ApplicationController
   # GET /sources
   # GET /sources.json
   def index
+    @report = Report.find(params[:report_id])
     @sources = Source.all
 
     respond_to do |format|
@@ -25,6 +26,7 @@ class SourcesController < ApplicationController
 
   # GET /sources/1/edit
   def edit
+    @report = Report.find(params[:report_id])
     @source = Source.find(params[:id])
   end
 
@@ -33,12 +35,13 @@ class SourcesController < ApplicationController
   def create
 
     @report = Report.find(params[:report_id]) 
-    @source = Source.new(params[:source])
-    @source.object_type = StgSource.find_by_name(@source.name).object_type
-
-    @source = @report.sources.create(name: @source.name[1], description: @source.description, object_type: @source.object_type)
-
-    redirect_to report_source_new_source_field_path(@report, @source)
+    @source = @report.sources.build(name: params[:tname][:title], description: params[:source][:description], 
+                                        object_type: params[:source][:object_type], owner: params[:source][:owner])
+    if @source.save
+      redirect_to report_source_new_source_field_path(@report, @source)
+    else
+      render action: "new"
+    end  
   end
 
   # PUT /sources/1
@@ -64,7 +67,7 @@ class SourcesController < ApplicationController
     @source.destroy
 
     respond_to do |format|
-      format.html { redirect_to sources_url }
+      format.html { redirect_to report_sources_path }
       format.json { head :no_content }
     end
   end
@@ -77,13 +80,14 @@ class SourcesController < ApplicationController
       OraConnect.transaction do
           conn = OraConnect.connection.raw_connection
           cursor = conn.parse('BEGIN RDF_pkg.Return_sources(:OBJECTS); END;')
-          cursor.bind_param(1, nil, String, 4000)
+          cursor.bind_param(1, nil, String)
           cursor.exec()
       end
-      cursor[1].split(/;/).each do |i|
+      cursor[1].split(/#/).each do |i|
          @stg_source = StgSource.new(name: i.split(/,/)[0], 
                               object_type: i.split(/,/)[1],
-                              description: i.split(/,/)[2])
+                              description: i.split(/,/)[2],
+                              owner: i.split(/,/)[3])
          @stg_source.save
       end   
       

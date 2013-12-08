@@ -2,20 +2,24 @@ Rdf::Application.routes.draw do
   root :to => 'reports#index'
 resources :reports, only: [:index, :create, :new, :edit, :update, :destroy] do
 
-  get     '/sources(.:format)',                 to: 'sources#index', as: :sources
-  post    '/sources(.:format)',                 to: 'sources#create'
-  get     '/edit/sources/new(.:format)',        to: 'sources#new',   as: :new_source
-  get     '/reports/:id/edit/sources/:id/edit(.:format)',        to: 'sources#edit',  as: :edit_report_source
+  get     '/sources(.:format)',                                  to: 'sources#index', as: :sources
+  post    '/sources(.:format)',                                  to: 'sources#create'
+  get     '/edit/sources/new(.:format)',                         to: 'sources#new',   as: :new_source
+  get     '/:id/edit/sources/:id/edit(.:format)',                to: 'sources#edit',  as: :edit_report_source
   put     '/reports/:id/edit/sources/:id(.:format)',             to: 'sources#update'
   delete  '/reports/:id/edit/sources/:id(.:format)',             to: 'sources#destroy'
 
     resources :sources, only: [:index, :create, :new, :edit, :update, :destroy] do
 
-      get     '/edit/source_fields/new(.:format)',        to: 'source_fields#new',   as: :new_source_field
+      get     '/source_fields(.:format)',                 to: 'source_fields#new',    as: :source_fields
+      get     '/edit/source_fields/new(.:format)',        to: 'source_fields#new',    as: :new_source_field
+      post    '/source_fields(.:format)',                 to: 'source_fields#create'
 
     end
 
 end
+
+resources :datamarts, only: [:index]
 
   match ':controller(/:action(/:id))(.:format)'
   # The priority is based upon order of creation:

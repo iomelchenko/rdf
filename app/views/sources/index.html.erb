@@ -1,4 +1,4 @@
-<%- model_class = Report -%>
+<%- model_class = Source -%>
 <div class="page-header">
   <h3><%=t '.title', :default => model_class.model_name.human.pluralize %></h3>
 </div>
@@ -11,15 +11,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @reports.each do |report| %>
+    <% @sources.each do |source| %>
       <tr>
-        <td><%= link_to report.name, report_sources_path(report) %></td>
-        <td><%= report.description %></td>
+        <td><%= source.name %></td>
+        <td><%= source.description %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_report_path(report), :class => 'btn btn-mini' %>
+
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      report_path(report),
+                      report_source_path(@report.id, source),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -30,5 +29,7 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_report_path,
+            new_report_source_path,
             :class => 'btn btn-primary' %>
+<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            reports_path, :class => 'btn' %>            

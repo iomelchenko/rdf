@@ -1,5 +1,5 @@
 class StgSourceField < ActiveRecord::Base
 
-  attr_accessible :name, :description, :date_type
+  attr_accessible :name, :data_length, :data_precigion, :data_scale, :description, :date_type
 
 end
