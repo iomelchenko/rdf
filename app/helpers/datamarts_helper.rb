@@ -12,16 +12,24 @@ module DatamartsHelper
 	end
 
 	def data_hidden(params)
-		params.compact[0].to_s
+		str = ''
+		params.compact.each do |i|
+           str += i.to_int.to_s + '_'
+		end	
+		str.chomp("_")
 	end	
 
 	def hide(params)
 		arr = params.compact
-		hd = nil
+		hd = ''
 		if arr.length > 1
-		  hd = "hide" + arr[1].to_s
+		  hd = "hide"
+		  arr.pop
+		  arr.each do |i|
+	           hd += i.to_s + '_'
+		  end	
 		end
-		hd  
+		hd.chomp("_") 
 	end	
 
 	def cust_type (obj, d_type)

@@ -5,9 +5,8 @@ $(document).ready(function(){
   $('.spoiler').click( function(e) {
       e.stopImmediatePropagation();
 	  var hiddenid = $(this).data('hidden');
-	  var hdid = parseInt(hiddenid.substring(4));
+	  var hdid = hiddenid.substring(4);
 
-	  console.log($('.' + hiddenid).filter('tr:visible').length);
 	  if ($('.' + hiddenid).filter('tr:visible').length == 0) {
 
         $('.' + hiddenid).slideDown();

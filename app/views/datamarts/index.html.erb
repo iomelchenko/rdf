@@ -19,7 +19,7 @@
   <tbody>
         <% @datamarts.each do |datamart| %> 
 
-            <% stg_dmrt = [datamart[:level_5_id], datamart[:level_4_id], datamart[:level_3_id], datamart[:level_2_id], datamart[:level_1_id]] %>
+            <% stg_dmrt = [datamart[:level_1_id], datamart[:level_2_id], datamart[:level_3_id], datamart[:level_4_id], datamart[:level_5_id]] %>
 
             <tr data-hidden="hide<%= "#{data_hidden(stg_dmrt)}" %>" class="<%= "#{hide(stg_dmrt)}" %> spoiler  n_<%= "#{stg_dmrt[0]}"  %> n_<%= "#{stg_dmrt[1]}" %> n_<%= "#{stg_dmrt[2]}"  %>  n_<%= "#{stg_dmrt[3]}"  %>  n_<%= "#{stg_dmrt[4]}"  %>">
                <% @levels_all.each do |l| %>
