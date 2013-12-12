@@ -2,7 +2,9 @@ class DatamartsController < ApplicationController
 
   def index
 
-    @datamarts = Datamart.order(:data_id, :baccount_id, :customer_id)
+    @levels_all = DmStructure.all
+    @datamarts = Datamart.order("#{DmStructure.ord}")
+
 
     respond_to do |format|
       format.html # index.html.erb

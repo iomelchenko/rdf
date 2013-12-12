@@ -7,27 +7,34 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:data) %></th>
-      <th><%= model_class.human_attribute_name(:baccount) %></th>
-      <th><%= model_class.human_attribute_name(:customer) %></th>
-      <th><%= model_class.human_attribute_name(:amount) %></th>
+         <% @levels_all.each do |l| %>
+
+              <th>
+                <%= model_class.human_attribute_name(l.level_name) %>
+              </th>
+
+         <% end %>       
     </tr>
   </thead>
   <tbody>
+        <% @datamarts.each do |datamart| %> 
 
-       <% @datamarts.each do |datamart| %>   
+            <% stg_dmrt = [datamart[:level_5_id], datamart[:level_4_id], datamart[:level_3_id], datamart[:level_2_id], datamart[:level_1_id]] %>
 
-        
-            <tr data-hidden="hide<%= "#{data_hidden(datamart.customer_id, datamart.baccount_id, datamart.data_id)}" %>" class="<%= "#{hide(datamart.customer_id, datamart.baccount_id, datamart.data_id)}" %> spoiler n_<%= "#{datamart.customer_id}"  %> n_<%= "#{datamart.baccount_id}" %> n_<%= "#{datamart.data_id}"  %>">
-              <td><%= datamart.data.to_date.to_formatted_s(:db) %></td>
-              <td><%= datamart.baccount %></td>
-              <td><%= datamart.customer %></td>
-              <td><%= datamart.amount %></td>
+            <tr data-hidden="hide<%= "#{data_hidden(stg_dmrt)}" %>" class="<%= "#{hide(stg_dmrt)}" %> spoiler  n_<%= "#{stg_dmrt[0]}"  %> n_<%= "#{stg_dmrt[1]}" %> n_<%= "#{stg_dmrt[2]}"  %>  n_<%= "#{stg_dmrt[3]}"  %>  n_<%= "#{stg_dmrt[4]}"  %>">
+               <% @levels_all.each do |l| %>
+
+                    <td>
+                     <% if l.measure == false %>
+                        <%= cust_type("#{datamart["level_" + l.level_order.to_i.to_s]}", l.level_data_type) %>
+
+                     <% else %>
+                        <%= "#{datamart["measure_" + l.level_order.to_i.to_s]}" %>
+                     <% end %>
+
+                    </td>
+               <% end %>               
             </tr>
-
-
-       <% end %>
-
-
+        <% end %>  
   </tbody>
 </table>
