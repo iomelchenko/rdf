@@ -23,9 +23,9 @@
 
             <tr data-hidden="hide<%= "#{data_hidden(stg_dmrt)}" %>" class="<%= "#{hide(stg_dmrt)}" %> spoiler  n_<%= "#{stg_dmrt[0]}"  %> n_<%= "#{stg_dmrt[1]}" %> n_<%= "#{stg_dmrt[2]}"  %>  n_<%= "#{stg_dmrt[3]}"  %>  n_<%= "#{stg_dmrt[4]}"  %>">
                <% @levels_all.each do |l| %>
-
+<% puts l.level_order.to_i.to_s %> 
                     <td>
-                     <% if l.measure == false %>
+                     <% if l.measure.to_i == 0 %>
                         <%= cust_type("#{datamart["level_" + l.level_order.to_i.to_s]}", l.level_data_type) %>
 
                      <% else %>

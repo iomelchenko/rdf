@@ -9,6 +9,7 @@ jQuery(function($) {
       <% for sorce in StgSource.find(:all) %>
 
           if ('<%= sorce.id.to_s %>' == str) {
+
            var descr = '<%= sorce.description %>';
            var ot    = '<%= if sorce.object_type = 't' 
                               'TABLE'

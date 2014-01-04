@@ -35,7 +35,8 @@ module DatamartsHelper
 	def cust_type (obj, d_type)
 
 	    if d_type == "DATE"
-	      obj = obj.to_date.to_formatted_s(:db)
+	      #obj = obj.to_date.to_formatted_s(:db)
+	      obj = obj.to_date
 	  	end	
 
 	  	obj

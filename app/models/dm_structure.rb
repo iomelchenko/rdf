@@ -1,6 +1,6 @@
 class DmStructure < OraConnect
 
-  set_table_name 'dm_structure'
+  set_table_name 'rdf_dm_structure'
 
   def self.ord
      str = ''

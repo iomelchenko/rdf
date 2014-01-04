@@ -3,7 +3,8 @@ class DatamartsController < ApplicationController
   def index
 
     @levels_all = DmStructure.all
-    @datamarts = Datamart.order("#{DmStructure.ord}")
+    #@datamarts = Datamart.order("#{DmStructure.ord}")
+    @datamarts = Datamart.all
 
 
     respond_to do |format|
